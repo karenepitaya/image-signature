@@ -19,3 +19,7 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// 引入路由
+const imageRoutes = require('./routes/imageRoutes');
+app.use('/api/images', imageRoutes);
