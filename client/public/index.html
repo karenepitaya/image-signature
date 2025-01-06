@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- content -->
-     <h1>You're Godamn right!</h1>
+    <h1>Image Upload Test</h1>
+    <div class="upload-container">
+        <input type="file" id="imageFile" accept="image/*">
+        <button id="uploadButton">Upload</button>
+    </div>
+    <div class="result-container" id="resultContainer" style="display: none;">
+        <h3>Upload Result:</h3>
+        <pre id="result"></pre>
+    </div>
 </body>
 </html>
