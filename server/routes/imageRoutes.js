@@ -2,6 +2,8 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
+const Blockchain = require('../utils/blockchain');  // 引入区块链模拟类
+const blockchain = new Blockchain();  // 创建一个新的区块链实例
 
 const router = express.Router();
 
@@ -30,10 +32,14 @@ router.post('/upload', upload.single('image'), (req, res) => {
     const fileBuffer = require('fs').readFileSync(filePath);
     const hash = crypto.createHash('sha256').update(fileBuffer).digest('hex');
 
+    // 将哈希值存储到区块链
+    blockchain.addBlock(hash);
+
     res.json({
         message: 'File uploaded successfully',
         filename: req.file.filename,
         hash: hash, // 返回图片哈希值
+        blockchain: blockchain.getChain() // 返回当前区块链
     });
 });
 
