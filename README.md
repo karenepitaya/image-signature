@@ -57,27 +57,32 @@
 
 #### **基础目录结构**
 
-```plaintext
+```tree
 blockchain-image-signature/
-├── client/                 # 前端代码
-│   ├── index.html          # 前端页面
-│   ├── style.css           # 页面样式
-│   └── script.js           # 前端交互逻辑
+├── client/
+|   └── public/             # 前端代码
+│       ├── index.html      # 前端页面
+│       ├── style.css       # 页面样式
+│       └── script.js       # 前端交互逻辑
 ├── server/                 # 后端代码
 │   ├── app.js              # 后端主文件
 │   ├── routes/             # 路由模块
-│   │   └── image.js        # 图片处理相关路由
+│   │   └── imageRoutes.js  # 图片处理相关路由
 │   ├── controllers/        # 控制器逻辑
 │   │   └── imageController.js
 │   └── utils/              # 工具函数
-│       └── crypto.js       # 哈希生成与签名逻辑
+│       └── blockchain.js   # 哈希生成与签名逻辑
 ├── blockchain/             # 区块链相关代码
 │   ├── contracts/          # 智能合约
 │   │   └── ImageSignature.sol
 │   ├── scripts/            # 部署与测试脚本
 │   │   └── deploy.js
 │   └── hardhat.config.js   # Hardhat 配置
+├── node_moudles/           # Node.js 项目依赖地址
+│   └── ···
+├── uploads/                # 上传图片存储目录
 ├── package.json            # Node.js 项目配置
+├── package_lock.json
 ├── README.md               # 项目说明文档
 └── .gitignore              # 忽略文件
 ```
