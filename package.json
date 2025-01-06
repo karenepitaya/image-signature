@@ -1,0 +1,30 @@
+{
+  "name": "image-signature",
+  "version": "1.0.0",
+  "description": "要实现区块链图片签名功能，我们需要以下技术支持：",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karenepitaya/image-signature.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/karenepitaya/image-signature/issues"
+  },
+  "homepage": "https://github.com/karenepitaya/image-signature#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "crypto": "^1.0.1",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
