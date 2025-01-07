@@ -9,6 +9,15 @@ const { error, timeStamp } = require('console');
 const blockchain = new Blockchain();  // 创建一个新的区块链实例
 const imageCache = new Map();  // 定义一个全局缓存区，存储图片哈希值和路径
 
+// 编写签名函数
+function signHash(hash, privateKey) {
+    const sign = crypto.createSign('SHA256');
+    sign.update(hash);
+    sign.end();
+    const signature = sign.sign(privateKey, 'hex');
+    return signature;
+}
+
 const router = express.Router();
 
 // 配置 multer 用于文件上传
@@ -48,11 +57,11 @@ router.post('/upload', upload.single('image'), (req, res) => {
 });
 
 router.post('/sign', (req, res) => {
-    const { hash, publicKey } = req.body; // 从请求体中获取哈希值
+    const { hash, publicKey, privateKey } = req.body; // 从请求体中获取哈希值
    
     // 检查哈希值和公钥是否提供
-    if (!hash || !publicKey) {
-        return res.status(400).json({ error: 'Hash is required' });
+    if (!hash || !publicKey || !privateKey) {
+        return res.status(400).json({ error: 'Hash, public key, and privateKey are required' });
     }
 
     // 检查哈希值是否存在于缓存中
@@ -61,14 +70,8 @@ router.post('/sign', (req, res) => {
     }
 
     try {
-        // 加载私钥
-        const privateKey = fs.readFileSync('private.pem', 'utf8');
-
         // 使用私钥对哈希值进行签名
-        const sign = crypto.createSign('SHA256');
-        sign.update(hash);
-        sign.end();
-        const signature = sign.sign(privateKey, 'hex');
+        const signature = signHash(hash, privateKey);
 
         // 将签名存储到区块链（可以选择存储更多信息）
         blockchain.addBlock({

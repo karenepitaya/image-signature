@@ -1,12 +1,10 @@
-const { sign } = require("crypto");
-
 // 获取 DOM 元素
 const imageFileInput = document.getElementById('imageFile');
 const uploadButton = document.getElementById('uploadButton');
 const resultContainer = document.getElementById('resultContainer');
 const resultElement = document.getElementById('result');
 const signButton = document.getElementById('signButton');
-const publicKeyInput = document.getElementById('publicKey');
+const publicKeyFileInput = document.getElementById('publicKeyFile');
 const privateKeyFileInput = document.getElementById('privateKeyFile');
 const signContainer = document.querySelector('.sign-container');
 let imageHash = '';
@@ -54,7 +52,7 @@ uploadButton.addEventListener('click', async () => {
 });
 
 signButton.addEventListener('click', async () => {
-    const publicKey = publicKeyInput.value.trim();
+    const publicKeyFile = publicKeyFileInput.files[0];
     const privateKeyFile = privateKeyFileInput.files[0];
 
     // 检查是否上传了图片
@@ -63,9 +61,9 @@ signButton.addEventListener('click', async () => {
         return;
     }
 
-    // 检查是否输入了公钥
-    if (!publicKey) {
-        alert('Please enter a public key.');
+    // 检查是否输入了公钥文件
+    if (!publicKeyFile) {
+        alert('Please enter a public key file.');
         return;
     }
 
@@ -76,14 +74,14 @@ signButton.addEventListener('click', async () => {
     }
 
     try {
-        // 读取私钥文件
         const privateKey = await privateKeyFile.text();
+        const publicKey = await publicKeyFile.text();
 
         // 发送 POST 请求到后端
         const response = await fetch('http://localhost:3000/api/images/sign', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 hash: imageHash,
@@ -93,14 +91,17 @@ signButton.addEventListener('click', async () => {
         });
 
         const result = await response.json();
+        
         if (response.ok) {
-            resultElement.textContent = `Signed successfully and stored in blockchain. Blockchain length: ${result.blockchainLength}`;
+            alert('Image signed successfully.');
+            console.log('Signature:', result.signature);
         } else {
-            resultElement.textContent = 'Error: ${result.error}';
+            alert('Signing failed. Please try again.');
+            console.error('Error:', result.error);
         }
     } catch (error) {
-        // 处理签名错误
-        alert('Sign failed. Please try again.');
+        // 处理错误
+        alert('Signing failed. Please try again.');
         console.error('Error:', error);
     }
 });
