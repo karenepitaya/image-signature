@@ -13,13 +13,13 @@
     <h1>Image Upload and Signing</h1>
 
     <!-- 图片上传部分-->
-    <div class="upload-container">
+    <div class="upload-container" id="uploadContainer">
         <input type="file" id="imageFile" accept="image/*" />
         <button id="uploadButton">Upload</button>
     </div>
 
     <!-- 图片签名部分-->
-    <div class="sign-container" style="display: none">
+    <div class="sign-container" id="signContainer" style="display: none">
         <h3>Digital Signature</h3>
         <label for="publicKey">Public Key (PEM format):</label>
         <input type="file" id="publicKeyFile" accept=".pem" />
