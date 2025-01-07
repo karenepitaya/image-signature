@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Image Upload</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
@@ -14,12 +14,12 @@
 
     <!-- 图片上传部分-->
     <div class="upload-container">
-        <input type="file" id="imageFile" accept="image/*">
+        <input type="file" id="imageFile" accept="image/*" />
         <button id="uploadButton">Upload</button>
     </div>
 
     <!-- 图片签名部分-->
-    <div class="sign-container" style="display: none;">
+    <div class="sign-container" style="display: none">
         <h3>Digital Signature</h3>
         <label for="publicKey">Public Key (PEM format):</label>
         <input type="file" id="publicKeyFile" accept=".pem" />
@@ -27,13 +27,23 @@
         <label for="privateKey">Private Key (PEM format):</label>
         <input type="file" id="privateKeyFile" accept=".pem" />
 
+        <label for="passphrase">Private Key Passphrase:</label>
+        <input type="password" id="passphrase" />
+
         <button id="signButton">Sign and Store</button>
     </div>
 
     <!-- 上传结果展示部分-->
-    <div class="result-container" id="resultContainer" style="display: none;">
-        <h3>Upload Result:</h3>
-        <pre id="result"></pre>
+    <div class="result-container" id="resultContainer" style="display: none">
+        <div class="upload-result-container" id="uploadResultContainer" style="display: none">
+            <h3>Upload Result:</h3>
+            <pre id="uploadResult"></pre>
+        </div>
+        <div class="sign-result-container" id="signResultContainer" style="display: none">
+            <h3>Sign Result:</h3>
+            <pre id="signResult"></pre>
+        </div>
     </div>
 </body>
+
 </html>

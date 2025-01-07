@@ -3,19 +3,23 @@ const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
-const Blockchain = require('../utils/blockchain');  // 引入区块链模拟类
 const { error, timeStamp } = require('console');
 
-const blockchain = new Blockchain();  // 创建一个新的区块链实例
 const imageCache = new Map();  // 定义一个全局缓存区，存储图片哈希值和路径
 
 // 编写签名函数
-function signHash(hash, privateKey) {
-    const sign = crypto.createSign('SHA256');
-    sign.update(hash);
-    sign.end();
-    const signature = sign.sign(privateKey, 'hex');
-    return signature;
+function signHash(hash, privateKey, passphrase) {
+    try {
+        // 使用 SHA-256 算法对哈希值进行签名
+        const sign = crypto.createSign('SHA256');
+        sign.update(hash);
+        sign.end();
+        const signature = sign.sign({ key: privateKey, passphrase: passphrase }, 'hex');
+        return signature;
+    } catch (error) {
+        console.error('Error during signing:', error);
+        throw new Error('Failed to sign the image');
+    }
 }
 
 const router = express.Router();
@@ -57,9 +61,9 @@ router.post('/upload', upload.single('image'), (req, res) => {
 });
 
 router.post('/sign', (req, res) => {
-    const { hash, publicKey, privateKey } = req.body; // 从请求体中获取哈希值
+    const { hash, publicKey, privateKey, passphrase } = req.body; // 从请求体中获取哈希值
    
-    // 检查哈希值和公钥是否提供
+    // 检查哈希值和密钥对是否提供
     if (!hash || !publicKey || !privateKey) {
         return res.status(400).json({ error: 'Hash, public key, and privateKey are required' });
     }
@@ -71,26 +75,19 @@ router.post('/sign', (req, res) => {
 
     try {
         // 使用私钥对哈希值进行签名
-        const signature = signHash(hash, privateKey);
+        const signature = signHash(hash, privateKey, passphrase);
 
-        // 将签名存储到区块链（可以选择存储更多信息）
-        blockchain.addBlock({
-            hash,
-            signature,
-            publicKey,
-            timeStamp: Date.now(),
-        });
+        // TODO>将签名存储到区块链（可以选择存储更多信息）
 
         res.json({
             message: 'Signature generated successfully',
             hash: hash,
             signature: signature,
             publicKey: publicKey,
-            blockchainLength: blockchain.chain.length, // 区块链长度
         });
     } catch (err) {
         console.error('Error during signing:', err);
-        res.status(500).json({ error: 'Failed to sign the hash' });
+        res.status(500).json({ error: 'signed successfully, but something went worong' });
     }
 });
 

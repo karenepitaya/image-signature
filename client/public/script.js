@@ -2,10 +2,14 @@
 const imageFileInput = document.getElementById('imageFile');
 const uploadButton = document.getElementById('uploadButton');
 const resultContainer = document.getElementById('resultContainer');
-const resultElement = document.getElementById('result');
+const uploadResultContainer = document.getElementById('uploadResultContainer');
+const signResultContainer = document.getElementById('signResultContainer');
+const uploadResultElement = document.getElementById('uploadResult');
+const signResultElement = document.getElementById('signResult');
 const signButton = document.getElementById('signButton');
 const publicKeyFileInput = document.getElementById('publicKeyFile');
 const privateKeyFileInput = document.getElementById('privateKeyFile');
+const passphraseInput = document.getElementById('passphrase');
 const signContainer = document.querySelector('.sign-container');
 let imageHash = '';
 
@@ -41,9 +45,10 @@ uploadButton.addEventListener('click', async () => {
         imageHash = data.hash;
 
         // 显示结果
-        resultElement.textContent = `Image uploaded successfully. Image hash: ${imageHash}`;
-        resultContainer.style.display = 'block';
         signContainer.style.display = 'block';
+        resultContainer.style.display = 'block';
+        uploadResultContainer.style.display = 'block';
+        uploadResultElement.textContent = `Image uploaded successfully.\nImage hash: ${imageHash}`;
     } catch (error) {
         // 处理错误
         alert('Upload failed. Please try again.');
@@ -54,6 +59,7 @@ uploadButton.addEventListener('click', async () => {
 signButton.addEventListener('click', async () => {
     const publicKeyFile = publicKeyFileInput.files[0];
     const privateKeyFile = privateKeyFileInput.files[0];
+    const passphrase = passphraseInput.value;
 
     // 检查是否上传了图片
     if (!imageHash) {
@@ -73,6 +79,12 @@ signButton.addEventListener('click', async () => {
         return;
     }
 
+    // 检查是否输入了私钥密码
+    if (!passphrase) {
+        alert('Please enter a passphrase for the private key.');
+        return;
+    }
+
     try {
         const privateKey = await privateKeyFile.text();
         const publicKey = await publicKeyFile.text();
@@ -87,21 +99,23 @@ signButton.addEventListener('click', async () => {
                 hash: imageHash,
                 publicKey: publicKey,
                 privateKey: privateKey,
+                passphrase: passphrase,
             }),
         });
 
         const result = await response.json();
         
         if (response.ok) {
-            alert('Image signed successfully.');
-            console.log('Signature:', result.signature);
+            // 显示结果
+            signResultContainer.style.display = 'block';
+            signResultElement.textContent = `Image signed successfully.\nSignature: ${result.signature}`;
         } else {
-            alert('Signing failed. Please try again.');
+            alert('Signing failed. maybe the passphrase is wrong.');
             console.error('Error:', result.error);
         }
     } catch (error) {
         // 处理错误
-        alert('Signing failed. Please try again.');
+        alert('Signing failed. something went wrong. Please try again.');
         console.error('Error:', error);
     }
 });
