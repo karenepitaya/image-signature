@@ -71,13 +71,13 @@ blockchain-image-signature/
 │   ├── controllers/        # 控制器逻辑
 │   │   └── imageController.js
 │   └── utils/              # 工具函数
-│       └── blockchain.js   # 哈希生成与签名逻辑
 ├── blockchain/             # 区块链相关代码
 │   ├── contracts/          # 智能合约
-│   │   └── ImageSignature.sol
+│   │   └── ImageStorge.sol
 │   ├── scripts/            # 部署与测试脚本
 │   │   └── deploy.js
 │   └── hardhat.config.js   # Hardhat 配置
+│   └── ···
 ├── node_moudles/           # Node.js 项目依赖地址
 │   └── ···
 ├── uploads/                # 上传图片存储目录

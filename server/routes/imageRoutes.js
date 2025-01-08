@@ -3,24 +3,8 @@ const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
-const { error, timeStamp } = require('console');
 
 const imageCache = new Map();  // 定义一个全局缓存区，存储图片哈希值和路径
-
-// 编写签名函数
-function signHash(hash, privateKey, passphrase) {
-    try {
-        // 使用 SHA-256 算法对哈希值进行签名
-        const sign = crypto.createSign('SHA256');
-        sign.update(hash);
-        sign.end();
-        const signature = sign.sign({ key: privateKey, passphrase: passphrase }, 'hex');
-        return signature;
-    } catch (error) {
-        console.error('Error during signing:', error);
-        throw new Error('Failed to sign the image');
-    }
-}
 
 const router = express.Router();
 
@@ -60,6 +44,8 @@ router.post('/upload', upload.single('image'), (req, res) => {
     });
 });
 
+
+// TODO待修改成区块链签名
 router.post('/sign', (req, res) => {
     const { hash, publicKey, privateKey, passphrase } = req.body; // 从请求体中获取哈希值
    

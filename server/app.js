@@ -3,6 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path'); // 引入 path 模块来处理文件路径
 
+// 连接到本地的 Hardhat 节点
+const { ethers } = require("ethers");
+const provider = new ethers.JsonRpcProvider("http://localhost:8545");
+
 // 创建 Express 应用
 const app = express();
 const PORT = 3000; // 后端服务运行端口
