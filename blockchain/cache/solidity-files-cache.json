@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\code\\project\\qukuailian\\image-signature\\blockchain\\contracts\\ImageStorge.sol": {
-      "lastModificationDate": 1736301616549,
-      "contentHash": "89d223feb18d09628e83c8db4891ac7a",
+      "lastModificationDate": 1736397501479,
+      "contentHash": "2ebe591bc5c21f1029827f7f7cd370e0",
       "sourceName": "contracts/ImageStorge.sol",
       "solcConfig": {
         "version": "0.8.28",
@@ -34,7 +34,7 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "ImageStorage"
+        "SignatureStorage"
       ]
     }
   }

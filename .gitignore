@@ -3,3 +3,5 @@ node_modules/
 *.log
 uploads/
 blockchain/node_modules/
+.env
+tests/
