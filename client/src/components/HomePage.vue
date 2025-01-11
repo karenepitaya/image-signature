@@ -21,6 +21,7 @@ export default {
     data() {
         return {
             accounts: [],  // 用来存储从 JSON 加载的账户数据
+            isDarkMode: false,  // 用来存储当前主题模式
         };
     },
     created() {
@@ -47,7 +48,6 @@ export default {
 </script>
 
 <style scoped>
-
 .homepage {
   text-align: center;
   padding: 20px;
