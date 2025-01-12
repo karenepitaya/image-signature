@@ -1,5 +1,5 @@
 <template>
-  <div class="homepage">
+  <div class="homepage" v-if="!selectedAccount">
     <h1>Accounts List</h1>
     <p>Click on an account to select it.</p>
     <div class="accounts">
@@ -15,18 +15,20 @@
       </div>
     </div>
   </div>
+  <ChoosingPage v-else :account="selectedAccount" />
 </template>
 
 <script>
 // 如果选择使用 axios 导入（如果使用 axios，请确保已安装 axios）
 import axios from "axios";
+import ChoosingPage from "./ChoosingPage.vue"; // 导入新的组件
 
 export default {
   name: "HomePage",
   data() {
     return {
       accounts: [],  // 用来存储从 JSON 加载的账户数据
-      isDarkMode: false,  // 用来存储当前主题模式
+      selectedAccount: null // 用来存储选中的账户信息
     };
   },
   created() {
@@ -46,8 +48,12 @@ export default {
     // 处理选择账户的逻辑（例如：将选中的账户存储在状态管理中）
     selectAccount(account) {
       console.log("Selected Account:", account);
+      this.selectedAccount = account;
       // 你可以在这里做其他操作，比如导航到签名页面，或者保存选择的账户
     },
+  },
+  components: {
+    ChoosingPage, // 注册新的组件
   },
 };
 </script>
@@ -56,11 +62,14 @@ export default {
 .homepage {
   text-align: center;
   padding: 20px;
-  font-family: 'Consolas', monospace; /* 使用 Consolas 字体 */
-  width: 100%; /* 确保内容宽度 */
+  font-family: 'Consolas', monospace;
+  /* 使用 Consolas 字体 */
+  width: 100%;
+  /* 确保内容宽度 */
   display: flex;
   flex-direction: column;
-  align-items: center; /* 确保内容居中 */
+  align-items: center;
+  /* 确保内容居中 */
   justify-content: center;
 }
 
@@ -70,7 +79,7 @@ h1 {
   color: #333;
 }
 
-h1 + p {
+h1+p {
   margin-bottom: 20px;
   margin-top: 0;
   color: #555;
@@ -78,11 +87,13 @@ h1 + p {
 
 .accounts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 自适应列宽 */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* 自适应列宽 */
   gap: 20px;
   margin: 0 auto;
   max-width: 1200px;
-  padding: 10px; /* 避免贴边 */
+  padding: 10px;
+  /* 避免贴边 */
 }
 
 .account-card {
@@ -90,10 +101,14 @@ h1 + p {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  display: flex; /* 使用 flex 布局 */
-  justify-content: space-between; /* 左右对齐 */
-  align-items: center; /* 垂直居中 */
-  gap: 10px; /* 左右间距 */
+  display: flex;
+  /* 使用 flex 布局 */
+  justify-content: space-between;
+  /* 左右对齐 */
+  align-items: center;
+  /* 垂直居中 */
+  gap: 10px;
+  /* 左右间距 */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   align-items: stretch;
 }
@@ -104,8 +119,10 @@ h1 + p {
 }
 
 .account-info {
-  flex: 1; /* 左侧信息部分占满可用空间 */
-  width: 50%; /* 避免内容撑开 */
+  flex: 1;
+  /* 左侧信息部分占满可用空间 */
+  width: 50%;
+  /* 避免内容撑开 */
 }
 
 .account-info p {
@@ -113,13 +130,16 @@ h1 + p {
   font-size: 0.9rem;
   color: #555;
   text-align: left;
-  word-break: break-all; /* 强制长字符串换行 */
-  overflow-wrap: break-word; /* 长单词换行 */
+  word-break: break-all;
+  /* 强制长字符串换行 */
+  overflow-wrap: break-word;
+  /* 长单词换行 */
 }
 
 button {
   padding: 10px;
-  background-color: #4A64E3; /* 按钮背景色 */
+  background-color: #4A64E3;
+  /* 按钮背景色 */
   color: white;
   border: none;
   border-radius: 5px;
@@ -133,7 +153,9 @@ button:hover {
 }
 
 button:active {
-  transform: scale(0.95); /* 点击时缩小按钮 */
-  background-color: #2e3b8e; /* 点击时改变背景色 */
+  transform: scale(0.95);
+  /* 点击时缩小按钮 */
+  background-color: #2e3b8e;
+  /* 点击时改变背景色 */
 }
 </style>
