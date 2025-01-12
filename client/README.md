@@ -13,3 +13,5 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
 3、hardhat签名方法和验证方法
 
 4、hardhat项目ethers版本问题，得5.x版本，否则一连串报错
+
+5、前端路由通过query方法传递账户参数，私钥已经暴露，但是先不管，寻求一个方法传递账户信息且不暴露（？加密）

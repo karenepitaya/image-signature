@@ -8,6 +8,10 @@
             <button @click="navigateToVerify">Verify Image</button>
         </div>
     </div>
+    <div>
+        <h1>Debug Props</h1>
+        <pre>{{ account }}</pre> <!-- 使用 pre 格式化输出 -->
+    </div>
 </template>
 
 <script>
@@ -23,10 +27,30 @@ export default {
         navigateToSign() {
             console.log("Navigate to Sign Image with account:", this.account);
             // 在这里实现跳转到签名页面的逻辑
+            this.$router.push({
+                name: "ImageSign",
+                query: {
+                    address: this.account.address,
+                    index: this.account.index,
+                    privateKey: this.account.privateKey
+                }
+            }).catch(err => {
+                console.error("Navigation Error:", err.message);
+            });
         },
         navigateToVerify() {
             console.log("Navigate to Verify Image with account:", this.account);
             // 在这里实现跳转到验证页面的逻辑
+            this.$router.push({
+                name: "ImageVerify",
+                query: {
+                    address: this.account.address,
+                    index: this.account.index,
+                    privateKey: this.account.privateKey
+                }
+            }).catch(err => {
+                console.error("Navigation Error:", err.message);
+            });
         }
     }
 };
