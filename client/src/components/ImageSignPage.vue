@@ -40,17 +40,18 @@ export default {
         },
         // 上传失败的回调
         handleUploadFailure(error) {
+            this.imageHash = ''; // 清空哈希值
             this.isUploaded = false;
             this.infoMessage = `Upload failed: ${error}`;
         },
         // 签名请求的回调
         async handleSignRequest() {
             try {
-                const response = await this.$axios.post('/sign', {
-                    privateKey: this.account.privateKey, 
+                const response = await this.$axios.post('http://localhost:3000/api/sign', {
+                    privateKey: this.account.privateKey,
                     address: this.account.address,
                     accountIndex: this.account.index,
-                    hash: this.imageHash, 
+                    hash: this.imageHash,
                 });
                 this.infoMessage = `Sign successful: ${response.data.message}`;
             } catch (error) {
@@ -61,6 +62,4 @@ export default {
 };
 </script>
 
-<style scoped>
-/* 添加你自己的样式 */
-</style>
+<style scoped></style>
