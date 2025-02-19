@@ -2,6 +2,32 @@
 
 ### **0：本地运行**
 
+1. 先将仓库克隆到本地再进入仓库
+```powershell
+git clone git@github.com:karenepitaya/image-signature.git // 保存到本地
+cd image-signature
+```
+
+2. 配置环境安装依赖
+```powershell
+npm install // 安装项目总依赖
+cd ./client/
+npm install // 安装vue项目依赖
+cd ../blockchain/
+npm install // 安装hardhat项目依赖
+```
+
+3. 运行项目
+```powershell
+cd ./blockchain         // 在终端一中执行
+npx hardhat compile     // 编译合约
+cd ..                   // 返回项目家目录
+npm run start-hardhat   // 在终端一中保持运行
+npm run wait-and-deploy // 在终端二中执行
+npm run start-server    // 在终端二中保持运行
+cd ./client             // 在终端三中执行
+npm run dev             // 在终端三中保持执行并在浏览器中打开前端链接
+```
 ### **1: 技术栈**
 
 要实现区块链图片签名功能，我们需要以下技术支持：
@@ -60,16 +86,29 @@
 #### **基础目录结构**
 
 ```tree
-blockchain-image-signature/
-├── client/
-|   └── public/             # 前端代码
-│       ├── index.html      # 前端页面
-│       ├── style.css       # 页面样式
-│       └── script.js       # 前端交互逻辑
+image-signature/
+├── client/                 # vue项目
+|   ├── public/             # 顶层资源     
+│   │   ├── accounts.json   
+│   │   ├── fav.ico       
+│   │   └── vite.svg       
+│   ├── src/                # 页面资源
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── router/
+│   │   ├── app.vue
+│   │   ├── main.js
+│   │   └── style.css 
+│   ├── .gitignore
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json        # 项目配置
+│   ├── vite.config.js
+│   └── README.md
 ├── server/                 # 后端代码
-│   ├── app.js              # 后端主文件
+│   ├── app.js              
 │   ├── routes/             # 路由模块
-│   │   └── imageRoutes.js  # 图片处理相关路由
+│   │   └── imageRoutes.js  
 │   ├── controllers/        # 控制器逻辑
 │   │   └── imageController.js
 │   └── utils/              # 工具函数
