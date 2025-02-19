@@ -7,6 +7,7 @@
     "start": "npm run start-hardhat && npm run wait-and-deploy && npm run start-server",
     "start-hardhat": "cd blockchain && npx hardhat node",
     "start-server": "node server/app.js",
+    "start-client": "cd client && npm run dev",
     "start-deploy": "cd blockchain && npx hardhat run scripts/deploy.js --network localhost",
     "wait-and-deploy": "wait-on tcp:127.0.0.1:8545 && npm run start-deploy"
   },
