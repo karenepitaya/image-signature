@@ -5,8 +5,8 @@ import ImageVerifyPage from '../components/ImageVerifyPage.vue';
 
 const routes = [
   {
-    path: '/',  // 这里可以配置你希望访问该页面的路径
-    name: 'Home', // 给这个路由起个名字
+    path: '/',  // 可以配置希望访问该页面的路径
+    name: 'Home', // 配置路由的名字
     component: HomePage,  // 配置组件对应的路径
   },
   {

@@ -4,7 +4,8 @@
 
 1. 先将仓库克隆到本地再进入仓库
 ```powershell
-git clone git@github.com:karenepitaya/image-signature.git // 保存到本地
+git clone git@github.com:karenepitaya/image-signature.git // 保存到本地（GitHub）
+git clone git@gitee.com:karenepitaya/image-signature.git // 保存到本地（Gitee）
 cd image-signature
 ```
 

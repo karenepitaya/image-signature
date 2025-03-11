@@ -26,7 +26,7 @@ export default {
     methods: {
         navigateToSign() {
             console.log("Navigate to Sign Image with account:", this.account);
-            // 在这里实现跳转到签名页面的逻辑
+            // 实现跳转到签名页面的逻辑
             this.$router.push({
                 name: "ImageSign",
                 query: {
@@ -40,7 +40,7 @@ export default {
         },
         navigateToVerify() {
             console.log("Navigate to Verify Image with account:", this.account);
-            // 在这里实现跳转到验证页面的逻辑
+            // 实现跳转到验证页面的逻辑
             this.$router.push({
                 name: "ImageVerify",
                 query: {
